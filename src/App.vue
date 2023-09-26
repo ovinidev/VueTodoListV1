@@ -32,7 +32,7 @@ function removeTask(id: number) {
     <div
       className="flex mt-36 flex-col items-center space-y-4 px-6 w-full xsm:w-[30rem]"
     >
-      <img className="h-12" src="./assets/vue.svg" />
+      <img className="h-12" src="./assets/vue.svg" alt="vue logo" />
       <h1 className="text-zinc-50 text-3xl">Todo List V1</h1>
 
       <div className="flex items-center gap-2 w-full">

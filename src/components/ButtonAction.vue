@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <button className="bg-primary p-2 text-zinc-50 rounded-md">
+  <button type="button" className="bg-primary p-2 text-zinc-50 rounded-md">
     {{ title }}
   </button>
 </template>
