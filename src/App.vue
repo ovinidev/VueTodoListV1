@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import Button from "./components/ButtonAction.vue";
 
 const tasks = ref([
   {
@@ -7,6 +8,7 @@ const tasks = ref([
     name: "",
   },
 ]);
+
 const newTask = ref("");
 
 function addTask() {
@@ -41,12 +43,7 @@ function removeTask(id: number) {
           className="w-full p-2 rounded"
         />
 
-        <button
-          @click="addTask"
-          className="bg-primary p-2 text-zinc-50 rounded-md"
-        >
-          Create
-        </button>
+        <Button @click="addTask" title="Create" />
       </div>
 
       <div className="space-y-2 w-full">
@@ -59,13 +56,12 @@ function removeTask(id: number) {
             {{ task.name }}
           </span>
 
-          <button
+          <Button
             v-if="task.name.length"
             className="bg-primary p-2 rounded-md"
             @click="removeTask(task.id)"
-          >
-            Apagar
-          </button>
+            title="Apagar"
+          />
         </div>
       </div>
     </div>
