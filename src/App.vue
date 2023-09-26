@@ -10,14 +10,14 @@ const tasks = ref([
 const newTask = ref("");
 
 function addTask() {
-  if (!tasks.value) return;
+  if (tasks.value) {
+    tasks.value.push({
+      id: Math.random(),
+      name: newTask.value,
+    });
 
-  tasks.value.push({
-    id: Math.random(),
-    name: newTask.value,
-  });
-
-  newTask.value = "";
+    newTask.value = "";
+  }
 }
 
 function removeTask(id: number) {
