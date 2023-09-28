@@ -1,16 +1,10 @@
 <script lang="ts">
-import { onMounted } from "vue";
-
 export default {
   props: {
     title: String,
   },
   setup(props) {
     props.title;
-
-    onMounted(() => {
-      console.log("Renderizou", props.title);
-    });
   },
 };
 </script>
