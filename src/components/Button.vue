@@ -1,12 +1,16 @@
 <script lang="ts">
+import { onMounted } from "vue";
+
 export default {
-  methods: {
-    handleClick() {
-      this.$emit("click");
-    },
-  },
   props: {
     title: String,
+  },
+  setup(props) {
+    props.title;
+
+    onMounted(() => {
+      console.log("Renderizou", props.title);
+    });
   },
 };
 </script>

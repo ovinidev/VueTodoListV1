@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Button from "./components/ButtonAction.vue";
+import { onMounted, onUnmounted, ref } from "vue";
+import Button from "./components/Button.vue";
 
-const tasks = ref([
-  {
-    id: 0,
-    name: "",
-  },
-]);
+interface Task {
+  id: number;
+  name: string;
+  isDone: boolean;
+}
 
-const newTask = ref("");
+const tasks = ref<Task[]>([]);
+const newTask = ref<string>("");
 
 function addTask() {
-  if (tasks.value) {
+  if (newTask.value) {
     tasks.value.push({
       id: Math.random(),
       name: newTask.value,
+      isDone: false,
     });
 
     newTask.value = "";
@@ -25,6 +26,24 @@ function addTask() {
 function removeTask(id: number) {
   tasks.value = tasks.value.filter((task) => task.id !== id);
 }
+
+function complete(id: number) {
+  tasks.value = tasks.value.map((task) => {
+    if (task.id === id) {
+      return { ...task, isDone: !task.isDone };
+    }
+
+    return { ...task };
+  });
+}
+
+onMounted(() => {
+  console.log("Renderizou");
+});
+
+onUnmounted(() => {
+  console.log("Des renderizou");
+});
 </script>
 
 <template>
@@ -37,33 +56,44 @@ function removeTask(id: number) {
 
       <div className="flex items-center gap-2 w-full">
         <input
+          autofocus
           type="text"
           v-model="newTask"
           placeholder="Task"
           className="w-full p-2 rounded"
+          @keyup.enter="addTask"
         />
 
         <Button @click="addTask" title="Create" />
       </div>
 
-      <div className="space-y-2 w-full">
-        <div
+      <ul className="space-y-2 w-full">
+        <li
           className="flex item-center items-center justify-between text-zinc-50"
-          v-for="(task, index) in tasks"
-          v-bind:key="index"
+          v-if="tasks"
+          v-for="task in tasks"
+          :key="task.id"
+          @click="complete(task.id)"
         >
-          <span className="text-zinc-50 text-xl">
-            {{ task.name }}
-          </span>
+          <div className="flex items-center gap-2">
+            <input :checked="task.isDone" type="checkbox" className="h-4 w-4" />
+
+            <span
+              class="cursor-pointer text-xl text-zinc-50"
+              :class="{ 'line-through': task.isDone }"
+            >
+              {{ task.name }}
+            </span>
+          </div>
 
           <Button
             v-if="task.name.length"
-            className="bg-primary p-2 rounded-md"
+            className="bg-primary text-base p-1.5 rounded-md"
             @click="removeTask(task.id)"
             title="Apagar"
           />
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </main>
 </template>
