@@ -36,14 +36,6 @@ function complete(id: number) {
     return { ...task };
   });
 }
-
-onMounted(() => {
-  console.log("Renderizou");
-});
-
-onUnmounted(() => {
-  console.log("Des renderizou");
-});
 </script>
 
 <template>
