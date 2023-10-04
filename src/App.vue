@@ -67,7 +67,7 @@ onUnmounted(() => {
         <Button @click="addTask" title="Create" />
       </div>
 
-      <ul className="space-y-2 w-full">
+      <ul className="space-y-2 w-full" v-auto-animate>
         <li
           className="flex item-center items-center justify-between text-zinc-50"
           v-if="tasks"
