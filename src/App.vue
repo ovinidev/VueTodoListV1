@@ -1,6 +1,9 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { ref } from "vue";
 import Button from "./components/Button.vue";
+import { createUsers } from "./api/axiosInstance";
+import { useUsers } from "./queries/users";
+import { useMutation, useQueryClient } from "@tanstack/vue-query";
 
 interface Task {
   id: number;
@@ -36,6 +39,17 @@ function complete(id: number) {
     return { ...task };
   });
 }
+
+const { data: users } = useUsers();
+
+const queryClient = useQueryClient();
+
+const { mutateAsync: createUser } = useMutation({
+  mutationFn: createUsers,
+  onSuccess: () => {
+    queryClient.invalidateQueries(["users"]);
+  },
+});
 </script>
 
 <template>
@@ -58,6 +72,11 @@ function complete(id: number) {
 
         <Button @click="addTask" title="Create" />
       </div>
+
+      <Button title="new" @click="createUser" />
+      <h1 v-if="users?.length" class="text-violet-100" v-for="user in users">
+        {{ user.name }}
+      </h1>
 
       <ul className="space-y-2 w-full" v-auto-animate>
         <li
