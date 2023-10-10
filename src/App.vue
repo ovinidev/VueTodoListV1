@@ -73,11 +73,6 @@ const { mutateAsync: createUser } = useMutation({
         <Button @click="addTask" title="Create" />
       </div>
 
-      <Button title="new" @click="createUser" />
-      <h1 v-if="users?.length" class="text-violet-100" v-for="user in users">
-        {{ user.name }}
-      </h1>
-
       <ul className="space-y-2 w-full" v-auto-animate>
         <li
           className="flex item-center items-center justify-between text-zinc-50"
