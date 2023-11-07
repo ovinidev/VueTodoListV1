@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Button from "./components/Button.vue";
-import { createUsers } from "./api/axiosInstance";
 import { useUsers } from "./queries/users";
-import { useMutation, useQueryClient } from "@tanstack/vue-query";
 
 interface Task {
   id: number;
@@ -41,15 +39,16 @@ function complete(id: number) {
 }
 
 const { data: users } = useUsers();
+console.log({ users });
 
-const queryClient = useQueryClient();
+// const queryClient = useQueryClient();
 
-const { mutateAsync: createUser } = useMutation({
-  mutationFn: createUsers,
-  onSuccess: () => {
-    queryClient.invalidateQueries(["users"]);
-  },
-});
+// const { mutateAsync: createUser } = useMutation({
+//   mutationFn: createUsers,
+//   onSuccess: () => {
+//     queryClient.invalidateQueries(["users"]);
+//   },
+// });
 </script>
 
 <template>
